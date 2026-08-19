@@ -11,7 +11,6 @@ import { isCompleteCredential, mergeCredential } from './auth/credential.js';
 import { resolveGoogleCredential } from './auth/resolveCredential.js';
 import { readTokenStore } from './auth/tokenStore.js';
 import { SERVER_NAME, SERVER_VERSION, buildServer } from './serverFactory.js';
-import type { ReadableStream as NodeWebReadableStream } from 'node:stream/web';
 
 const DEFAULT_PORT = 8813;
 const DEFAULT_HOST = '127.0.0.1';
@@ -125,7 +124,7 @@ const sendWebResponse = (res: ServerResponse, response: Response): void => {
     res.end();
     return;
   }
-  const nodeStream = Readable.fromWeb(response.body as unknown as NodeWebReadableStream<Uint8Array>);
+  const nodeStream = Readable.from(response.body);
   nodeStream.pipe(res);
   nodeStream.on('error', () => {
     res.destroy();
@@ -144,6 +143,22 @@ const serveMcp = async (ctx: RequestContext, url: URL): Promise<void> => {
   sendWebResponse(ctx.res, webResponse);
 };
 
+const servePublicGet = (res: ServerResponse, pathname: string): void => {
+  if (pathname === '/') {
+    sendJson(res, HTTP_OK, {
+      name: SERVER_NAME,
+      description: SERVER_DESCRIPTION,
+      version: SERVER_VERSION,
+      endpoints: {
+        '/health': 'Health check (no auth).',
+        '/mcp': 'MCP Streamable HTTP endpoint (API key auth required).',
+      },
+    });
+    return;
+  }
+  sendJson(res, HTTP_OK, { ok: true, name: SERVER_NAME, version: SERVER_VERSION });
+};
+
 const handleNodeRequest = async (ctx: RequestContext): Promise<void> => {
   const url = requestUrl(ctx.req);
   const method = ctx.req.method ?? 'GET';
@@ -156,19 +171,7 @@ const handleNodeRequest = async (ctx: RequestContext): Promise<void> => {
     return;
   }
   if (method === 'GET' && PUBLIC_PATHS.has(url.pathname)) {
-    if (url.pathname === '/') {
-      sendJson(ctx.res, HTTP_OK, {
-        name: SERVER_NAME,
-        description: SERVER_DESCRIPTION,
-        version: SERVER_VERSION,
-        endpoints: {
-          '/health': 'Health check (no auth).',
-          '/mcp': 'MCP Streamable HTTP endpoint (API key auth required).',
-        },
-      });
-      return;
-    }
-    sendJson(ctx.res, HTTP_OK, { ok: true, name: SERVER_NAME, version: SERVER_VERSION });
+    servePublicGet(ctx.res, url.pathname);
     return;
   }
   if (url.pathname === '/mcp') {

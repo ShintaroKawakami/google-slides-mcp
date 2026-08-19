@@ -30,7 +30,7 @@ The full variable table — required, defaults, meaning, and where values live (
 | Variable                    | Required | Default     | Meaning                                                                              |
 | --------------------------- | -------- | ----------- | ------------------------------------------------------------------------------------ |
 | `GOOGLE_SLIDES_MCP_API_KEY` | yes      | —           | API key checked on every `/mcp` request. Startup fails (exit 1) when unset or empty. |
-| `PORT`                      | no       | `8813`      | Listen port. `0` binds an ephemeral port; the actual port is printed on stderr.       |
+| `PORT`                      | no       | `8813`      | Listen port. `0` binds an ephemeral port; the actual port is printed on stderr.      |
 | `HOST`                      | no       | `127.0.0.1` | Listen address. Keep loopback and let the tunnel connect locally.                    |
 | `GOOGLE_CLIENT_ID`          | no       | token store | Overrides the client id from the token store.                                        |
 | `GOOGLE_CLIENT_SECRET`      | no       | token store | Overrides the client secret from the token store.                                    |
