@@ -74,7 +74,7 @@ Every `/mcp` request must present the API key configured in `GOOGLE_SLIDES_MCP_A
 1. `X-API-Key: <KEY>` request header (preferred).
 2. `?api_key=<KEY>` query string fallback — for hosts such as claude.ai that cannot set custom headers.
 
-Header takes precedence when both are present. Comparison is length-checked and constant-time. A missing, empty, or mismatched key answers `401` with a JSON body. `/`, `/health`, and the pre-auth discovery absorbers (`/.well-known/...` GET, `POST /register`) are the only unauthenticated routes, and none of them reach the tools. An unset or empty `GOOGLE_SLIDES_MCP_API_KEY` makes the process refuse to start (exit 1) so the server can never come up unauthenticated.
+Header takes precedence when both are present. Comparison is length-checked and constant-time. A missing or empty key answers `401` with `{"error":"unauthorized"}`; a present-but-wrong key answers `403` with `{"error":"forbidden"}` — the same 401/missing vs. 403/mismatch split as the mcp-servers shared `checkApiKey` pattern in asana-mcp. `/`, `/health`, and the pre-auth discovery absorbers (`/.well-known/...` GET, `POST /register`) are the only unauthenticated routes, and none of them reach the tools. An unset or empty `GOOGLE_SLIDES_MCP_API_KEY` makes the process refuse to start (exit 1) so the server can never come up unauthenticated.
 
 Generate a key once, for example with `openssl rand -hex 32`, and store it in your service manager environment. Never commit it.
 

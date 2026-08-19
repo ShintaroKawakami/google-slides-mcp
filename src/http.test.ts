@@ -171,13 +171,13 @@ await describe('google-slides-mcp HTTP server', async () => {
     assert.deepEqual(body, { error: 'unauthorized' });
   });
 
-  await it('POST /mcp with a mismatched api key answers 401', async () => {
+  await it('POST /mcp with a mismatched api key answers 403', async () => {
     const header = await request('/mcp', postJson(jsonRpc(1, 'tools/list'), { 'x-api-key': 'wrong-key' }));
-    assert.equal(header.status, 401);
-    assert.deepEqual(header.body, { error: 'unauthorized' });
+    assert.equal(header.status, 403);
+    assert.deepEqual(header.body, { error: 'forbidden' });
     const query = await request(`/mcp?api_key=wrong-key`, postJson(jsonRpc(2, 'tools/list')));
-    assert.equal(query.status, 401);
-    assert.deepEqual(query.body, { error: 'unauthorized' });
+    assert.equal(query.status, 403);
+    assert.deepEqual(query.body, { error: 'forbidden' });
   });
 
   await it('POST /mcp with a matching X-API-Key answers initialize 200', async () => {

@@ -3,6 +3,7 @@
 // Business rules: only `/` and `/health` are public info routes; `/mcp` stays behind the X-API-Key header (with ?api_key fallback) checked in constant time; no OAuth issuer is implemented because this server gates with a static API key.
 // Alternatives rejected: real OAuth metadata endpoints (no OAuth flow exists here) and SSE transport (stateless Streamable HTTP via createMcpHandler).
 // Handling: absorb the 11 discovery GET paths and POST /register with empty {} 200 before auth, serve GET / service info, keep /mcp and 404 behavior unchanged.
+// [2026-08-19][fix] A missing API key answers 401 (unauthenticated) and a present-but-wrong key answers 403 (authenticated identity rejected), matching the mcp-servers shared `checkApiKey` split in asana-mcp `src/run_with_auth.ts` (`checkApiKey` ~L131-136, call site ~L219-223).
 import { createMcpHandler, type McpHttpHandler } from '@modelcontextprotocol/server';
 import { timingSafeEqual } from 'node:crypto';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
@@ -18,6 +19,7 @@ const MAX_PORT = 65535;
 const SHUTDOWN_GRACE_MS = 5000;
 const HTTP_OK = 200;
 const HTTP_UNAUTHORIZED = 401;
+const HTTP_FORBIDDEN = 403;
 const HTTP_NOT_FOUND = 404;
 const HTTP_INTERNAL_ERROR = 500;
 
@@ -64,17 +66,19 @@ const matchesApiKey = (received: string, expected: string): boolean => {
   return timingSafeEqual(expectedBuffer, receivedBuffer);
 };
 
-const authorize = (req: IncomingMessage, url: URL, apiKey: string): boolean => {
+type AuthOutcome = 'authorized' | 'missing' | 'mismatch';
+
+const authorize = (req: IncomingMessage, url: URL, apiKey: string): AuthOutcome => {
   const headerValue = req.headers['x-api-key'];
   const headerKey = Array.isArray(headerValue) ? headerValue[0] : headerValue;
   if (typeof headerKey === 'string' && headerKey !== '') {
-    return matchesApiKey(headerKey, apiKey);
+    return matchesApiKey(headerKey, apiKey) ? 'authorized' : 'mismatch';
   }
   const queryKey = url.searchParams.get('api_key');
   if (queryKey !== null && queryKey !== '') {
-    return matchesApiKey(queryKey, apiKey);
+    return matchesApiKey(queryKey, apiKey) ? 'authorized' : 'mismatch';
   }
-  return false;
+  return 'missing';
 };
 
 const readBody = (req: IncomingMessage): Promise<Buffer> =>
@@ -134,8 +138,13 @@ const sendWebResponse = (res: ServerResponse, response: Response): void => {
 const requestUrl = (req: IncomingMessage): URL => new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
 
 const serveMcp = async (ctx: RequestContext, url: URL): Promise<void> => {
-  if (!authorize(ctx.req, url, ctx.apiKey)) {
+  const outcome = authorize(ctx.req, url, ctx.apiKey);
+  if (outcome === 'missing') {
     sendJson(ctx.res, HTTP_UNAUTHORIZED, { error: 'unauthorized' });
+    return;
+  }
+  if (outcome === 'mismatch') {
+    sendJson(ctx.res, HTTP_FORBIDDEN, { error: 'forbidden' });
     return;
   }
   const webRequest = await toWebRequest(ctx.req, url);

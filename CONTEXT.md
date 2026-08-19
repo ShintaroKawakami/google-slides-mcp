@@ -21,7 +21,7 @@ A Google Slides API mutation object. This server does not model its shape.
 _Avoid_: request body, patch
 
 **Transport**:
-The channel between this process and the host. This server uses stdio only.
+The channel between this process and the host. This server speaks stdio (default) or HTTP (self-hosted): stateless Streamable HTTP at `POST /mcp`, gated by `X-API-Key` (`?api_key` fallback).
 _Avoid_: connection, socket, stream
 
 **Protocol era**:
