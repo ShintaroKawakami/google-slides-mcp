@@ -79,6 +79,40 @@ npm run start
 
 The process listens on stdio. Stderr prints `Google Slides MCP server running and connected via stdio.`
 
+## HTTP mode (self-hosted)
+
+The server can also listen on HTTP instead of stdio. This fits a always-on home server behind a Cloudflare Tunnel: claude.ai, Claude Code, Codex, and other hosts connect with the Streamable HTTP transport to `POST /mcp`.
+
+Details live in [docs/http-mode.md](docs/http-mode.md). Short version:
+
+1. Finish the Google consent once via stdio (`npm run start`), or set `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `GOOGLE_REFRESH_TOKEN`. The HTTP server never opens the browser.
+2. Build and start:
+
+```bash
+npm run build
+GOOGLE_SLIDES_MCP_API_KEY=<KEY> npm run start:http
+```
+
+The process listens on `127.0.0.1:8813` by default (`PORT` and `HOST` override). Environment variables, including where values are stored (`~/.config/agent-hub/.env` SSOT), are documented in [docs/ENV_VARIABLES.md](docs/ENV_VARIABLES.md).
+
+- `GET /health` — no auth, returns `{"ok":true,"name":"google-slides-mcp","version":"0.1.0"}`.
+- `GET /` — no auth, returns name/description/version/endpoints.
+- `GET /.well-known/...` (11 OAuth/OpenID discovery paths) and `POST /register` — no auth, empty `{}` `200`. claude.ai probes these before authenticating; absorbing them avoids connector failures.
+- `POST /mcp` — Streamable HTTP (stateless). Auth required: `X-API-Key: <KEY>` header, or `?api_key=<KEY>` as a query fallback.
+- Any other path returns `404`. A missing or wrong key returns `401`. The server refuses to start when `GOOGLE_SLIDES_MCP_API_KEY` is unset or empty.
+
+Smoke test:
+
+```bash
+curl -s -X POST http://127.0.0.1:8813/mcp \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json, text/event-stream' \
+  -H 'X-API-Key: <KEY>' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"curl","version":"0.0.0"}}}'
+```
+
+Logs go to stderr only. Never put real keys or tokens in a shell history you share.
+
 ## Available Tools
 
 - **`create_presentation`**: Creates a new Google Slides presentation.
