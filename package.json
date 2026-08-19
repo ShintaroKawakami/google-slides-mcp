@@ -5,11 +5,15 @@
   "keywords": [],
   "license": "ISC",
   "author": "",
+  "bin": {
+    "google-slides-mcp-http": "bin/start-http.js"
+  },
   "type": "module",
   "main": "build/index.js",
   "scripts": {
     "build": "tsc",
     "start": "node build/index.js",
+    "start:http": "node build/http.js",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "lint": "oxlint --type-aware",
