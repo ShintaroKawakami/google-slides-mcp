@@ -15,6 +15,8 @@ Or via the bin script (installs deps and compiles first, like `bin/start-mcp.js`
 GOOGLE_SLIDES_MCP_API_KEY=<KEY> bin/start-http.js
 ```
 
+`npm test` runs `pretest` (`npm run build`) automatically first, so `npm test` alone builds and tests from a clean checkout.
+
 Stderr prints one line on start:
 
 ```
