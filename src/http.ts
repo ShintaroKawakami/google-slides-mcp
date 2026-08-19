@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+// [2026-08-19][feat] Background: claude.ai connectors probe OAuth discovery URLs before sending credentials; a 404 there breaks the connection and can trigger a 429 retry storm (mcp-servers shared rule).
+// Business rules: only `/` and `/health` are public info routes; `/mcp` stays behind the X-API-Key header (with ?api_key fallback) checked in constant time; no OAuth issuer is implemented because this server gates with a static API key.
+// Alternatives rejected: real OAuth metadata endpoints (no OAuth flow exists here) and SSE transport (stateless Streamable HTTP via createMcpHandler).
+// Handling: absorb the 11 discovery GET paths and POST /register with empty {} 200 before auth, serve GET / service info, keep /mcp and 404 behavior unchanged.
 import { createMcpHandler, type McpHttpHandler } from '@modelcontextprotocol/server';
 import { timingSafeEqual } from 'node:crypto';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
@@ -17,6 +21,24 @@ const HTTP_OK = 200;
 const HTTP_UNAUTHORIZED = 401;
 const HTTP_NOT_FOUND = 404;
 const HTTP_INTERNAL_ERROR = 500;
+
+const SERVER_DESCRIPTION = 'MCP server for Google Slides integration';
+
+const OAUTH_DISCOVERY_GET_PATHS = new Set([
+  '/.well-known/oauth-authorization-server',
+  '/.well-known/oauth-authorization-server/mcp',
+  '/.well-known/oauth-authorization-server/sse',
+  '/.well-known/oauth-protected-resource',
+  '/.well-known/oauth-protected-resource/mcp',
+  '/.well-known/oauth-protected-resource/sse',
+  '/.well-known/openid-configuration',
+  '/.well-known/openid-configuration/mcp',
+  '/.well-known/openid-configuration/sse',
+  '/mcp/.well-known/openid-configuration',
+  '/sse/.well-known/openid-configuration',
+]);
+
+const PUBLIC_PATHS = new Set(['/', '/health']);
 
 type RequestContext = {
   handler: McpHttpHandler;
@@ -124,7 +146,28 @@ const serveMcp = async (ctx: RequestContext, url: URL): Promise<void> => {
 
 const handleNodeRequest = async (ctx: RequestContext): Promise<void> => {
   const url = requestUrl(ctx.req);
-  if (ctx.req.method === 'GET' && url.pathname === '/health') {
+  const method = ctx.req.method ?? 'GET';
+  if (method === 'GET' && OAUTH_DISCOVERY_GET_PATHS.has(url.pathname)) {
+    sendJson(ctx.res, HTTP_OK, {});
+    return;
+  }
+  if (method === 'POST' && url.pathname === '/register') {
+    sendJson(ctx.res, HTTP_OK, {});
+    return;
+  }
+  if (method === 'GET' && PUBLIC_PATHS.has(url.pathname)) {
+    if (url.pathname === '/') {
+      sendJson(ctx.res, HTTP_OK, {
+        name: SERVER_NAME,
+        description: SERVER_DESCRIPTION,
+        version: SERVER_VERSION,
+        endpoints: {
+          '/health': 'Health check (no auth).',
+          '/mcp': 'MCP Streamable HTTP endpoint (API key auth required).',
+        },
+      });
+      return;
+    }
     sendJson(ctx.res, HTTP_OK, { ok: true, name: SERVER_NAME, version: SERVER_VERSION });
     return;
   }
@@ -137,7 +180,7 @@ const handleNodeRequest = async (ctx: RequestContext): Promise<void> => {
 
 const parsePort = (raw: string | undefined): number => {
   const parsed = Number.parseInt(raw ?? '', 10);
-  const valid = Number.isInteger(parsed) && parsed > 0 && parsed <= MAX_PORT;
+  const valid = Number.isInteger(parsed) && parsed >= 0 && parsed <= MAX_PORT;
   return valid ? parsed : DEFAULT_PORT;
 };
 
@@ -189,8 +232,10 @@ const start = async (): Promise<void> => {
   });
 
   server.listen(port, host, () => {
+    const address = server.address();
+    const listeningPort = typeof address === 'object' && address !== null ? address.port : port;
     console.error(
-      `Google Slides MCP HTTP server listening on http://${host}:${port} (stateless Streamable HTTP at POST /mcp, health at GET /health).`
+      `Google Slides MCP HTTP server listening on http://${host}:${listeningPort} (stateless Streamable HTTP at POST /mcp, health at GET /health).`
     );
   });
 

@@ -25,10 +25,12 @@ Nothing is written to stdout.
 
 ## Environment variables
 
+The full variable table — required, defaults, meaning, and where values live (`~/.config/agent-hub/.env` SSOT) — lives in [ENV_VARIABLES.md](ENV_VARIABLES.md). Quick reference:
+
 | Variable                    | Required | Default     | Meaning                                                                              |
 | --------------------------- | -------- | ----------- | ------------------------------------------------------------------------------------ |
 | `GOOGLE_SLIDES_MCP_API_KEY` | yes      | —           | API key checked on every `/mcp` request. Startup fails (exit 1) when unset or empty. |
-| `PORT`                      | no       | `8813`      | Listen port.                                                                         |
+| `PORT`                      | no       | `8813`      | Listen port. `0` binds an ephemeral port; the actual port is printed on stderr.       |
 | `HOST`                      | no       | `127.0.0.1` | Listen address. Keep loopback and let the tunnel connect locally.                    |
 | `GOOGLE_CLIENT_ID`          | no       | token store | Overrides the client id from the token store.                                        |
 | `GOOGLE_CLIENT_SECRET`      | no       | token store | Overrides the client secret from the token store.                                    |
@@ -37,8 +39,29 @@ Nothing is written to stdout.
 ## Endpoints
 
 - `GET /health` — no auth. `200` with `{"ok":true,"name":"google-slides-mcp","version":"0.1.0"}`.
+- `GET /` — no auth. `200` with service info: `name`, `description`, `version`, `endpoints`.
+- `GET` on the 11 OAuth/OpenID discovery paths below — no auth, `200` with `{}`.
+- `POST /register` — no auth, `200` with `{}`.
 - `POST /mcp` — Streamable HTTP, stateless. Auth required.
-- Every other path — `404` with a JSON body.
+- Every other path and method — `404` with a JSON body.
+
+Discovery absorber paths (kept identical to the other mcp-servers HTTP servers):
+
+```
+/.well-known/oauth-authorization-server
+/.well-known/oauth-authorization-server/mcp
+/.well-known/oauth-authorization-server/sse
+/.well-known/oauth-protected-resource
+/.well-known/oauth-protected-resource/mcp
+/.well-known/oauth-protected-resource/sse
+/.well-known/openid-configuration
+/.well-known/openid-configuration/mcp
+/.well-known/openid-configuration/sse
+/mcp/.well-known/openid-configuration
+/sse/.well-known/openid-configuration
+```
+
+claude.ai probes these URLs before it authenticates. Answering `404` there breaks the connector and can trigger a 429 retry storm, so they — and `/register` — are absorbed as empty `{}` `200` before any auth check. This server implements no OAuth flow (the gate is the static API key), so the empty body tells connectors there is nothing to discover. `PUBLIC_PATHS` stays limited to `/` and `/health`; no other route exposes anything without a key.
 
 The `/mcp` endpoint is mounted stateless, following the SDK v2 `createMcpHandler` serving entry: each request is served by a fresh server instance built from the same tool definitions, no session id is issued, and `GET`/`DELETE` on `/mcp` (stateless session operations) answer `405`. Responses stream as SSE when the client accepts `text/event-stream`, plain JSON otherwise.
 
@@ -49,7 +72,7 @@ Every `/mcp` request must present the API key configured in `GOOGLE_SLIDES_MCP_A
 1. `X-API-Key: <KEY>` request header (preferred).
 2. `?api_key=<KEY>` query string fallback — for hosts such as claude.ai that cannot set custom headers.
 
-Header takes precedence when both are present. Comparison is length-checked and constant-time. A missing, empty, or mismatched key answers `401` with a JSON body. `/health` is the only unauthenticated route. An unset or empty `GOOGLE_SLIDES_MCP_API_KEY` makes the process refuse to start (exit 1) so the server can never come up unauthenticated.
+Header takes precedence when both are present. Comparison is length-checked and constant-time. A missing, empty, or mismatched key answers `401` with a JSON body. `/`, `/health`, and the pre-auth discovery absorbers (`/.well-known/...` GET, `POST /register`) are the only unauthenticated routes, and none of them reach the tools. An unset or empty `GOOGLE_SLIDES_MCP_API_KEY` makes the process refuse to start (exit 1) so the server can never come up unauthenticated.
 
 Generate a key once, for example with `openssl rand -hex 32`, and store it in your service manager environment. Never commit it.
 

@@ -1,3 +1,7 @@
+// [2026-08-19][feat] Background: HTTP mode must expose the exact same tools as stdio, and each HTTP request builds a fresh server from the startup-resolved credential so no session state survives behind tunnel reconnects.
+// Business rules: the Google credential is resolved once at startup (HTTP mode never opens the browser consent flow); tool definitions stay single-sourced here for both entrances.
+// Alternatives rejected: per-session state and SSE transport (stateless createMcpHandler keeps the HTTP surface simple and restart-friendly).
+// Handling: comment only — SERVER_NAME / SERVER_VERSION / slidesClient / buildServer exports and behavior are unchanged.
 import { McpServer } from '@modelcontextprotocol/server';
 import { google, type slides_v1 } from 'googleapis';
 import { setupToolHandlers } from './serverHandlers.js';

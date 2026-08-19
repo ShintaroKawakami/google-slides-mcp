@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+// [2026-08-19][feat] Background: hosts that cannot spawn processes (claude.ai over a Cloudflare Tunnel) need an always-on HTTP entrance; this launcher mirrors bin/start-mcp.js by installing deps and compiling into the plugin data dir, never into the repo.
+// Business rules: GOOGLE_SLIDES_MCP_API_KEY must come from the caller's environment (values sourced from the ~/.config/agent-hub/.env SSOT); the repo stays source-only with no committed build output.
+// Alternatives rejected: shipping prebuilt build/ output and compiling into the repo (plugin data dir keeps installs reproducible per package-lock hash).
+// Handling: install only when package.json / lock hashes change, compile, then spawn build/http.js with inherited stdio and forward exit code/signal.
 import { spawn, spawnSync } from 'node:child_process';
 import { copyFileSync, existsSync, mkdirSync, readFileSync } from 'node:fs';
 import { homedir } from 'node:os';

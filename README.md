@@ -93,9 +93,11 @@ npm run build
 GOOGLE_SLIDES_MCP_API_KEY=<KEY> npm run start:http
 ```
 
-The process listens on `127.0.0.1:8813` by default (`PORT` and `HOST` override).
+The process listens on `127.0.0.1:8813` by default (`PORT` and `HOST` override). Environment variables, including where values are stored (`~/.config/agent-hub/.env` SSOT), are documented in [docs/ENV_VARIABLES.md](docs/ENV_VARIABLES.md).
 
 - `GET /health` — no auth, returns `{"ok":true,"name":"google-slides-mcp","version":"0.1.0"}`.
+- `GET /` — no auth, returns name/description/version/endpoints.
+- `GET /.well-known/...` (11 OAuth/OpenID discovery paths) and `POST /register` — no auth, empty `{}` `200`. claude.ai probes these before authenticating; absorbing them avoids connector failures.
 - `POST /mcp` — Streamable HTTP (stateless). Auth required: `X-API-Key: <KEY>` header, or `?api_key=<KEY>` as a query fallback.
 - Any other path returns `404`. A missing or wrong key returns `401`. The server refuses to start when `GOOGLE_SLIDES_MCP_API_KEY` is unset or empty.
 
