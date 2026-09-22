@@ -42,12 +42,12 @@
   },
   "resolver_version": "1.1.0",
   "schema_version": 2,
-  "source_fingerprint": "sha256:ecb17d54e532fd11f7a63bd00e59a62e9cd558928d5ec883daeb1906cb92f96b",
+  "source_fingerprint": "sha256:d240e54e2546b06d7ccb0409bc839d50d5f61469d61c4ebd190d2daf775bef69",
   "surfaces": [
     {
       "asset_revisions": [],
       "client": "claude",
-      "content_digest": "sha256:248267c807e03c5f26f911745d142b2d0ad31c58d5129069685d58e463aee8d7",
+      "content_digest": "sha256:1433d8769ac80b288851b372e3380c2cfea6ea79520774b6b8bd4239a26871cc",
       "kind": "ai_client",
       "materialization_digest": "sha256:71434888dfc5e9ff81fbd3b70e062ee945a15f3ddd50dc2f25b3018700796348",
       "probe": "generated-surface-ignore",
