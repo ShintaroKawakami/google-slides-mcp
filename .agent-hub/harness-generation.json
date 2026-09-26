@@ -42,7 +42,7 @@
   },
   "resolver_version": "1.1.0",
   "schema_version": 2,
-  "source_fingerprint": "sha256:298f955260a38ad8a9c9e94155ddfc4148c00a39e48e9fa93e331c1ec69aae40",
+  "source_fingerprint": "sha256:59cdd76b81ac24a498006b59806169b989fbdbcb3ad989b677db1a1f07230398",
   "surfaces": [
     {
       "asset_revisions": [],
@@ -192,7 +192,7 @@
       "symlink_policy": "forbidden",
       "target": ".codex/sync-state.json",
       "writer_id": "sync-codex-mcp-configs",
-      "writer_version": "sha256:03066899e421637f59278722a811fdc135fc433313451d5671731726f48790a4"
+      "writer_version": "sha256:10711c3ee1469ae32244f7f4fafd276d3dbd74ab54553ce2435b3797685ed211"
     },
     {
       "asset_revisions": [
