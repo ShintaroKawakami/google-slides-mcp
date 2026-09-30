@@ -25,7 +25,7 @@ older text that calls `DISTRIBUTION.yaml` a skill/MCP/hook selection SSOT is sup
 - canonical project: `google-slides-mcp`
 - harness type: `mcp-server`
 - harness type chain: `dev -> mcp-server`
-- effective hash: `aa43586d6f7dfc9aae6ae88b54029a18aa4ddac8752be40303ef869dcf8d7ca2`
+- effective hash: `a1bb88e3fdf4aa690d1d37321e7f909263475bff068286fbf8ca63a574ab7559`
 - constitution assets:
   - `agents-md` (selected_by=`global`, inheritance_id=`9e4a01ef21e9c073`)
   - `gbrain-md` (selected_by=`global`, inheritance_id=`b20f665e0ee71783`)
