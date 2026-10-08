@@ -31,9 +31,9 @@
   ],
   "canonical_project": "google-slides-mcp",
   "effective_hashes": {
-    "claude": "2d869da188a1c8d2dbc0c1c22febbdfd8a545b0a2d0fafcf1691754516994fc2",
-    "codex": "2d869da188a1c8d2dbc0c1c22febbdfd8a545b0a2d0fafcf1691754516994fc2",
-    "warp": "2d869da188a1c8d2dbc0c1c22febbdfd8a545b0a2d0fafcf1691754516994fc2"
+    "claude": "460f15856368671477b82ad728b61dad1ba559550aaafa27ec3d4a10bada26fe",
+    "codex": "460f15856368671477b82ad728b61dad1ba559550aaafa27ec3d4a10bada26fe",
+    "warp": "460f15856368671477b82ad728b61dad1ba559550aaafa27ec3d4a10bada26fe"
   },
   "harness_type": "mcp-server",
   "ledger_writer": {
@@ -42,7 +42,7 @@
   },
   "resolver_version": "1.1.0",
   "schema_version": 2,
-  "source_fingerprint": "sha256:e54aeb6dd7f27c9c148bd13fc238e2386413b963ccb91c8e890b6cfbe1a0c448",
+  "source_fingerprint": "sha256:e87a11f7e28d074f14595c21857efff24d2138cabe5747bb0b4dbf089fb34105",
   "surfaces": [
     {
       "asset_revisions": [],
@@ -69,9 +69,9 @@
         }
       ],
       "client": "claude",
-      "content_digest": "sha256:9c3d8cf25bbf8079607e8241e60ff3ad6215577ad8c7ab2872a1bd22dd72ef5b",
+      "content_digest": "sha256:44dc0c326c401126df08d7820ef096e6d9520b4ee6def71fd145c52a696a0221",
       "kind": "constitution",
-      "materialization_digest": "sha256:9190ecaf53eb380d07e66902a3d139796310581df2683cfcdb9613f9ec7c60fc",
+      "materialization_digest": "sha256:1b4eb2bf4302ad72a1877ecc2c5253061a74fccb388e964f5e3e5dc1d807b2be",
       "probe": "fresh-instruction-discovery",
       "source_revision": "sha256:f9b06233cc7616a96cb892f9a213bfbca922821e457707535f1e41ab9b9fe456",
       "symlink_policy": "forbidden",
@@ -91,7 +91,7 @@
         },
         {
           "asset_id": "branch-rule",
-          "source_revision": "4c085b18bd1fd88c3a256084a5c82ed622650990740827b3cdc96336645d5760"
+          "source_revision": "aaafef95e692953857801d7741686fb10dfa999a90e98db138d76c4f0a4278af"
         },
         {
           "asset_id": "claude-auto-worktree-lifecycle",
@@ -127,11 +127,11 @@
         },
         {
           "asset_id": "plan-approval-gate",
-          "source_revision": "3e997f64eec58073823fe24e44ba60e6eba9769704c52337a8b95c48ce64c0dc"
+          "source_revision": "88b181d517619eca2eb4c4307ae6a632e338f8950443a62835570f4d34b74199"
         },
         {
           "asset_id": "plan-commitment-tracking",
-          "source_revision": "f9942b160997639a5b51a1d3a1377c14e406f1a9b2d85cd4bfdf5a0da5160c14"
+          "source_revision": "4b05eea1781b781c27fcfe053cbb48570e02d315b760882917a742015132e774"
         },
         {
           "asset_id": "reference-over-hardcode",
@@ -151,7 +151,7 @@
         },
         {
           "asset_id": "sub-agent-scope-contract",
-          "source_revision": "14c448dc78ef434db571cc0affa5456094080a1a575d87898c5f5dee924698a6"
+          "source_revision": "76a325723c3ed2439ca24dfb0123900042dcd72d9e002848f1aa68914bb37636"
         },
         {
           "asset_id": "tool-availability-resolution",
@@ -159,7 +159,7 @@
         },
         {
           "asset_id": "ui-stitch-mandatory",
-          "source_revision": "82a6463ca35b07cdf7636256a6bff9644dd20bc23427c3d5ec9594797cfc3667"
+          "source_revision": "3af45c7c7ba3326199cf9f2e1b9fb8183c96efb0e981099ad1d7408f36672e2b"
         },
         {
           "asset_id": "visual-progress-map",
@@ -167,15 +167,15 @@
         },
         {
           "asset_id": "worktree-rule",
-          "source_revision": "f9a517e553a3aaf43f4b89f89bf8711dcfbb16748349b0c3b8e95d745d29f29b"
+          "source_revision": "12a132e9f8dd55252c89d896be3b50b0a57ebe4d7692b50dfa9d37d7adc5113f"
         }
       ],
       "client": "claude",
-      "content_digest": "sha256:94c0fb440f3257a56b7dc1d8142b72f61b88537ab8d19afc75d7dc5d97995cab",
+      "content_digest": "sha256:7d87d7241f0cfdb86ea520feab313859ec53a3f6496b9235fa72737c11807bc6",
       "kind": "rule",
-      "materialization_digest": "sha256:d4dd441d4fb886c1c813e1d27800dba483c5e285accfd9acfa7206b8d5e9b391",
+      "materialization_digest": "sha256:b312219cdbcc7cab94ae6bfaa8864218d6d60bd992f66324b6472f508c0e637e",
       "probe": "fresh-rule-discovery",
-      "source_revision": "sha256:dfc8f48dcb5514873ea9087b1127ac84ac246a705cd7728de993bd68bc896ef6",
+      "source_revision": "sha256:244c86d88ff8ad0346c528f698d678ebdfe8cd20f5b9fbbf8f755e5f0dbec50f",
       "symlink_policy": "forbidden",
       "target": ".claude/rules",
       "writer_id": "deploy-rules",
@@ -206,9 +206,9 @@
         }
       ],
       "client": "codex",
-      "content_digest": "sha256:9c3d8cf25bbf8079607e8241e60ff3ad6215577ad8c7ab2872a1bd22dd72ef5b",
+      "content_digest": "sha256:44dc0c326c401126df08d7820ef096e6d9520b4ee6def71fd145c52a696a0221",
       "kind": "constitution",
-      "materialization_digest": "sha256:a497f7b0672888a437eb9a1b80c117093e33416f56f4be1c716024296db40b08",
+      "materialization_digest": "sha256:1d01071f9e0a4bb96b8dae1c7a71701524fa1eaa898987ff92c28d067bb23b63",
       "probe": "fresh-instruction-discovery",
       "source_revision": "sha256:f9b06233cc7616a96cb892f9a213bfbca922821e457707535f1e41ab9b9fe456",
       "symlink_policy": "forbidden",
@@ -228,7 +228,7 @@
         },
         {
           "asset_id": "branch-rule",
-          "source_revision": "4c085b18bd1fd88c3a256084a5c82ed622650990740827b3cdc96336645d5760"
+          "source_revision": "aaafef95e692953857801d7741686fb10dfa999a90e98db138d76c4f0a4278af"
         },
         {
           "asset_id": "constructive-dissent",
@@ -260,11 +260,11 @@
         },
         {
           "asset_id": "plan-approval-gate",
-          "source_revision": "3e997f64eec58073823fe24e44ba60e6eba9769704c52337a8b95c48ce64c0dc"
+          "source_revision": "88b181d517619eca2eb4c4307ae6a632e338f8950443a62835570f4d34b74199"
         },
         {
           "asset_id": "plan-commitment-tracking",
-          "source_revision": "f9942b160997639a5b51a1d3a1377c14e406f1a9b2d85cd4bfdf5a0da5160c14"
+          "source_revision": "4b05eea1781b781c27fcfe053cbb48570e02d315b760882917a742015132e774"
         },
         {
           "asset_id": "reference-over-hardcode",
@@ -284,7 +284,7 @@
         },
         {
           "asset_id": "sub-agent-scope-contract",
-          "source_revision": "14c448dc78ef434db571cc0affa5456094080a1a575d87898c5f5dee924698a6"
+          "source_revision": "76a325723c3ed2439ca24dfb0123900042dcd72d9e002848f1aa68914bb37636"
         },
         {
           "asset_id": "tool-availability-resolution",
@@ -292,7 +292,7 @@
         },
         {
           "asset_id": "ui-stitch-mandatory",
-          "source_revision": "82a6463ca35b07cdf7636256a6bff9644dd20bc23427c3d5ec9594797cfc3667"
+          "source_revision": "3af45c7c7ba3326199cf9f2e1b9fb8183c96efb0e981099ad1d7408f36672e2b"
         },
         {
           "asset_id": "visual-progress-map",
@@ -300,15 +300,15 @@
         },
         {
           "asset_id": "worktree-rule",
-          "source_revision": "f9a517e553a3aaf43f4b89f89bf8711dcfbb16748349b0c3b8e95d745d29f29b"
+          "source_revision": "12a132e9f8dd55252c89d896be3b50b0a57ebe4d7692b50dfa9d37d7adc5113f"
         }
       ],
       "client": "codex",
-      "content_digest": "sha256:9c3d8cf25bbf8079607e8241e60ff3ad6215577ad8c7ab2872a1bd22dd72ef5b",
+      "content_digest": "sha256:44dc0c326c401126df08d7820ef096e6d9520b4ee6def71fd145c52a696a0221",
       "kind": "rule",
-      "materialization_digest": "sha256:12e971311e8bb01a5bcbe01e415c55bfc18e7f6bb84c8c07415713e02f956cb3",
+      "materialization_digest": "sha256:5af34acc1b5a729a8b5a0f73582a8ea915709d0d068de765d5f409fed043cac5",
       "probe": "fresh-rule-discovery",
-      "source_revision": "sha256:d0392691c737acc2ad17174e4105658542b4cfc1f6b1847bdbc8cf70b8f7db8c",
+      "source_revision": "sha256:c71572954a939c1f4b15479deb91c75ad8dc70ad2108e5be7ae69930208a974f",
       "symlink_policy": "forbidden",
       "target": "AGENTS.md",
       "writer_id": "generate-agents-md",
@@ -326,9 +326,9 @@
         }
       ],
       "client": "warp",
-      "content_digest": "sha256:9c3d8cf25bbf8079607e8241e60ff3ad6215577ad8c7ab2872a1bd22dd72ef5b",
+      "content_digest": "sha256:44dc0c326c401126df08d7820ef096e6d9520b4ee6def71fd145c52a696a0221",
       "kind": "constitution",
-      "materialization_digest": "sha256:6b4fdaa069301920b4a116a0fd413b0c5d52055c4f7d40d92e38a8fcc5b7fa94",
+      "materialization_digest": "sha256:eb66c686d87e7dcbeea000c37b8dae36167e686facae63cb678da83e2cb1b93c",
       "probe": "fresh-instruction-discovery",
       "source_revision": "sha256:f9b06233cc7616a96cb892f9a213bfbca922821e457707535f1e41ab9b9fe456",
       "symlink_policy": "forbidden",
@@ -348,7 +348,7 @@
         },
         {
           "asset_id": "branch-rule",
-          "source_revision": "4c085b18bd1fd88c3a256084a5c82ed622650990740827b3cdc96336645d5760"
+          "source_revision": "aaafef95e692953857801d7741686fb10dfa999a90e98db138d76c4f0a4278af"
         },
         {
           "asset_id": "constructive-dissent",
@@ -380,11 +380,11 @@
         },
         {
           "asset_id": "plan-approval-gate",
-          "source_revision": "3e997f64eec58073823fe24e44ba60e6eba9769704c52337a8b95c48ce64c0dc"
+          "source_revision": "88b181d517619eca2eb4c4307ae6a632e338f8950443a62835570f4d34b74199"
         },
         {
           "asset_id": "plan-commitment-tracking",
-          "source_revision": "f9942b160997639a5b51a1d3a1377c14e406f1a9b2d85cd4bfdf5a0da5160c14"
+          "source_revision": "4b05eea1781b781c27fcfe053cbb48570e02d315b760882917a742015132e774"
         },
         {
           "asset_id": "reference-over-hardcode",
@@ -404,7 +404,7 @@
         },
         {
           "asset_id": "sub-agent-scope-contract",
-          "source_revision": "14c448dc78ef434db571cc0affa5456094080a1a575d87898c5f5dee924698a6"
+          "source_revision": "76a325723c3ed2439ca24dfb0123900042dcd72d9e002848f1aa68914bb37636"
         },
         {
           "asset_id": "tool-availability-resolution",
@@ -412,7 +412,7 @@
         },
         {
           "asset_id": "ui-stitch-mandatory",
-          "source_revision": "82a6463ca35b07cdf7636256a6bff9644dd20bc23427c3d5ec9594797cfc3667"
+          "source_revision": "3af45c7c7ba3326199cf9f2e1b9fb8183c96efb0e981099ad1d7408f36672e2b"
         },
         {
           "asset_id": "visual-progress-map",
@@ -420,15 +420,15 @@
         },
         {
           "asset_id": "worktree-rule",
-          "source_revision": "f9a517e553a3aaf43f4b89f89bf8711dcfbb16748349b0c3b8e95d745d29f29b"
+          "source_revision": "12a132e9f8dd55252c89d896be3b50b0a57ebe4d7692b50dfa9d37d7adc5113f"
         }
       ],
       "client": "warp",
-      "content_digest": "sha256:9c3d8cf25bbf8079607e8241e60ff3ad6215577ad8c7ab2872a1bd22dd72ef5b",
+      "content_digest": "sha256:44dc0c326c401126df08d7820ef096e6d9520b4ee6def71fd145c52a696a0221",
       "kind": "rule",
-      "materialization_digest": "sha256:f63064d3a88d817d02f6e6942940f28941748df37b9fab5a198a0a3ffb54bd98",
+      "materialization_digest": "sha256:0f41112e07489ad5ea3281692d60d6a24284dfc078d89b25ce0876df53cdbaa4",
       "probe": "fresh-rule-discovery",
-      "source_revision": "sha256:d0392691c737acc2ad17174e4105658542b4cfc1f6b1847bdbc8cf70b8f7db8c",
+      "source_revision": "sha256:c71572954a939c1f4b15479deb91c75ad8dc70ad2108e5be7ae69930208a974f",
       "symlink_policy": "forbidden",
       "target": "AGENTS.md",
       "writer_id": "generate-agents-md",
