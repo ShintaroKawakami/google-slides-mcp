@@ -25,14 +25,14 @@ older text that calls `DISTRIBUTION.yaml` a skill/MCP/hook selection SSOT is sup
 - canonical project: `google-slides-mcp`
 - harness type: `mcp-server`
 - harness type chain: `dev -> mcp-server`
-- effective hash: `460f15856368671477b82ad728b61dad1ba559550aaafa27ec3d4a10bada26fe`
+- effective hash: `1f8130c292b05b8a349869047b2747731c97e52ee116aefc115e68e00f0e4b20`
 - constitution assets:
   - `agents-md` (selected_by=`global`, inheritance_id=`9e4a01ef21e9c073`)
   - `gbrain-md` (selected_by=`global`, inheritance_id=`b20f665e0ee71783`)
 
 ### Claude Code on the web（クラウド起動指示）
 
-Claude Code on the web（`CLAUDE_CODE_REMOTE=true`）で、`.claude/skills` に AGENT-HUB の skill（例: plan-approval）が無ければ、セッション開始直後に `cd <このAGENTS.mdがあるPJのルート> && bash .claude/hooks/scripts/cloud-hub-bootstrap.sh` を実行し、終わったら元のcwdへ戻ってから作業を始める（複数PJを添付しているなら、hookを持つPJごとに1回ずつ）。AGENT-HUB を他リポと同時添付したセッションはcwdが親ディレクトリになり hook が自動発火しないため（実測2026-09-05）。取得できないと案内が出る場合は、作成画面の「＋」で ShintaroKawakami/AGENT-HUB を添付し直す。
+Claude Code on the web（`CLAUDE_CODE_REMOTE=true`）で、`.claude/skills` に AGENT-HUB の skill（例: plan-approval）が無ければ、版記録（`.agents/skills/.hub-snapshot.json`）の有無にかかわらず、セッション開始直後に `cd <このAGENTS.mdがあるPJのルート> && bash .claude/hooks/scripts/cloud-hub-bootstrap.sh` を実行し、終わったら元のcwdへ戻ってから作業を始める（複数PJを添付しているなら、hookを持つPJごとに1回ずつ）。AGENT-HUB を他リポと同時添付したセッションはcwdが親ディレクトリになり hook が自動発火しないため（実測2026-09-05）。版記録がある PJ では、hook がリポジトリ内のスキル実物をつなぐだけで、AGENT-HUB の添付は不要。版記録が無い PJ で取得できないと案内が出る場合は、作成画面の「＋」で ShintaroKawakami/AGENT-HUB を添付し直す。
 ### 適用するハーネスルール
 
 以下は本文を読むための索引です。条件付きルールの適用範囲は参照先のfrontmatterに従います。
