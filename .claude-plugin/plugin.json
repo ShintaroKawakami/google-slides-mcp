@@ -10,5 +10,16 @@
   "homepage": "https://github.com/matteoantoci/google-slides-mcp",
   "repository": "https://github.com/matteoantoci/google-slides-mcp",
   "license": "ISC",
-  "keywords": ["google-slides", "mcp"]
+  "keywords": [
+    "google-slides",
+    "mcp"
+  ],
+  "mcpServers": {
+    "google-slides": {
+      "command": "node",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/bin/start-mcp.js"
+      ]
+    }
+  }
 }
