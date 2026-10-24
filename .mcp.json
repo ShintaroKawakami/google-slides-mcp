@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "google-slides": {
-      "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/bin/start-mcp.js"]
-    }
-  }
-}
