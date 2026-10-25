@@ -25,15 +25,15 @@ older text that calls `DISTRIBUTION.yaml` a skill/MCP/hook selection SSOT is sup
 - canonical project: `google-slides-mcp`
 - harness type: `mcp-server`
 - harness type chain: `dev -> mcp-server`
-- effective hash: `930202f7968f0bffaf54dfefbbfaee02bc8fb514321d8c445e175a7ce8f8549c`
+- effective hash: `0e08fd52401261e6537d1197a258d461bebb7ef9bb6f5faa748a532b293ca035`
 - constitution assets:
   - `agents-md` (selected_by=`global`, inheritance_id=`9e4a01ef21e9c073`)
   - `gbrain-md` (selected_by=`global`, inheritance_id=`b20f665e0ee71783`)
 
-### 聞く前に自分で決める（Claude・Cursor・Codex・Devin だけ）
+### 聞く前に自分で決める（信頼エージェントだけ）
 
 <!-- [2026-10-24][feat] 本人発言「DevinCursorもAGENTS.mdに入れればいけるはず」。Cursor の User Rules と Devin の native 憲法には共通本文が届かないため、各PJの AGENTS.md から届ける。正本は dotfiles/global/shared/SHARED_AGENTS.md の同名節。 -->
-- この節は **Claude・Cursor・Codex・Devin だけ**が使う。それ以外のAI（Kimi・GLM・Gemini・OpenCode・Antigravity・Raycast・Aside・Warp など）はこの節を使わず、従来どおり判断が要る時は本人に確認する。
+- この節は **信頼エージェント**（Claude・Cursor・Codex・Devin・へーちゃん〈Hermes の pm-agent〉）**だけ**が使う。それ以外のAI（Kimi・GLM・Gemini・OpenCode・Antigravity・Raycast・Aside・Warp・ぐーちゃん〈Grok Bot〉など）はこの節を使わず、従来どおり判断が要る時は本人に確認する。
 - 判断が要る時は、先に My GBrain の source `shintaro-gbrain` を読み、そこから自分で決めて進める。読めない時は「読めなかった」と書き、推測で決めない。
 - 戻せる判断は本人に聞かない。決めたことと根拠は報告に残す。
 - 聞くのは共通憲法 CARD 01「承認」に当たる時と、材料が無く取り返しがつかない時だけ。
