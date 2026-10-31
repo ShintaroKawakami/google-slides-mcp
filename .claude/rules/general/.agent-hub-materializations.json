@@ -3,12 +3,12 @@
   "rules": {
     "ai-model-selection.md": {
       "asset_id": "ai-model-selection",
-      "sha256": "fe476419b6f22a8fafb0fe824f0254936c8ae2f482d29b3b3487337349d043fe",
+      "sha256": "c2f98449d1cbc106409913764c540dc9e3b9b7461797a08a8c0c4fabfe13335a",
       "source": ".claude/rules/general/ai-model-selection.md"
     },
     "ai-worker-watch.md": {
       "asset_id": "ai-worker-watch",
-      "sha256": "8b253b2be4b7415e125b3719771199cc34018fbfa354869cb7654182f46f8ffe",
+      "sha256": "884c6afa97b5ce2f858091d5d7c5cf0d34ef7a49be76c7c49e84df571392b3ff",
       "source": ".claude/rules/general/ai-worker-watch.md"
     },
     "branch-rule.md": {
@@ -68,12 +68,12 @@
     },
     "reference-over-hardcode.md": {
       "asset_id": "reference-over-hardcode",
-      "sha256": "6c352ccec9a3a51cd06267e8a9d2550ad33195c86aee9519635e009c733e2ca5",
+      "sha256": "57dbf400fd96e4b201378d65c279576932a07174c3e3019cf2749b0edef56438",
       "source": ".claude/rules/general/reference-over-hardcode.md"
     },
     "response-style.md": {
       "asset_id": "response-style",
-      "sha256": "f155f599a59036f5c0fb51ae2160ae497458ad95514ebf67fe577a736f58b950",
+      "sha256": "8cf7a00dc2e8b12de317ee2ec682d7b32a8611b441459e34ed85b1ea83a1712e",
       "source": ".claude/rules/general/response-style.md"
     },
     "responsive-both-viewports.md": {
