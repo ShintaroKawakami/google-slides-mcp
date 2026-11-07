@@ -48,7 +48,7 @@
     },
     "mcp-key-management.md": {
       "asset_id": "mcp-key-management",
-      "sha256": "6801732b5d63c728aa465e438540a8c8f80d55e04207fd49a6f993e17ccd7a0b",
+      "sha256": "0e0fd3d8b891358a66d1aa151a22b40b1273c0b580be736af5f64eb5c7313623",
       "source": ".claude/rules/general/mcp-key-management.md"
     },
     "memory-lookups.md": {
@@ -63,7 +63,7 @@
     },
     "plan-commitment-tracking.md": {
       "asset_id": "plan-commitment-tracking",
-      "sha256": "cd957b5336f86c1f766ae01e620d5f4cddc6158b57d3e06c99ca723a269dc585",
+      "sha256": "6be9b99cee0b42ddcdb7fc1ee4c8071fadc7b33a479d3b2637c850a4085e3809",
       "source": ".claude/rules/general/plan-commitment-tracking.md"
     },
     "reference-over-hardcode.md": {

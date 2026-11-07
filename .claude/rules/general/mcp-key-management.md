@@ -55,7 +55,7 @@ JTT 関連の MCP（asana-mcp / jtt-smaregi-mcp / smaregi-docs / google-chat-mcp
 
 **Claude.ai 例外**: Claude.ai コネクタで `X-API-Key` ヘッダーを設定できない場合のみ、asana-mcp は `https://asana-mcp.jtt.cafe/mcp?api_key=<ASANA_MCP_API_KEY>` 形式を使ってよい。この例外は Claude.ai 手動登録専用で、AGENT-HUB の生成物には書かない。
 
-**ChatGPT 個人App 例外（2026-10-05）**: ChatGPT の個人App も独自ヘッダーを付けられず URL のクエリしか使えない。この場合に URL へ入れてよいのは、**書込み・送信ができない通知専用の鍵**だけ（例: depanda-mcp の `MCP_EVENTS_API_KEY`。書込み可能な強い鍵 `MCP_API_KEY` は URL に入れない）。鍵の実値は `~/.config/agent-hub/.env` が正本のまま、サーバー側の受付ログでは伏せ、漏れたら入れ替える（理由: URL の鍵はアクセスログに残るため、漏れても被害が読み取りに限られる鍵に限る）。AGENT-HUB の生成物には書かない。
+**ChatGPT 個人App 例外（2026-10-05・2026-10-14 拡張）**: ChatGPT の個人App も独自ヘッダーを付けられず URL のクエリしか使えない。URL へ入れてよいのは **URL 専用に発行した弱い鍵**だけ（例: 出パンダ本体 `/mcp/agent` の `query_only` トークン）。通知・会話の読み取りと合図（events）の受信に加え、**下見を本人に見せて OK を得てからの送信まで**可（preview → 本人 OK → send）。シフト等の書込みは不可。通常の強い鍵は URL に入れない。鍵の実値は `~/.config/agent-hub/.env` が正本のまま、発行は記録で鍵を伏せたこと（ホスト・コンテナ・PHP-FPM の3層）を確かめてから行い、漏れたら失効する。AGENT-HUB の生成物には書かない。
 
 ## PJ 横断の第三者個人情報（PII）の退避規範（2026-08-14〜）
 
