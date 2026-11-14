@@ -8,6 +8,14 @@ paths:
   - ".claude/rules/general/ai-model-selection.md"
 ---
 
+<!-- [2026-11-10][fix]
+背景: 伸太郎さん 2026-11-10「Fable 5.2 にともなってプロンプトの修正が必要」。承認済みプランの質問 delegate は A。
+  公式ガイド: 委譲を促す常設の文があると Fable 5.2 は進んで委譲し、費用が増える。費用を先に書いた説明で委譲は約3分の1減った。
+  守る決まり: まとまった実装・並列・大量読みの委譲と、モデルの割り振り（agents.yaml）は変えない。Sol など実装禁止のモデルは従来どおり。
+  他案不採用: 合図を消す案は、大きな実装を本体が抱えて使用量が増えるため不採用。行数で判定する仕組みの新設は、数え方の分岐を増やすだけなので不採用。
+対応: 「境界」段落と Fable 使用条件に「1ファイル・数行の直しは PM 役が直接やってよい」を追記（中身の正本は agents.yaml small_direct_edit。ここへは複製しない）。
+-->
+
 <!-- [2026-07-18][fix]
 背景:
   - ユーザー依頼意図: 常駐ルールを短くしても、Codex effort 方針を変えた理由と旧判断を追跡できる状態を保つ。
@@ -63,11 +71,11 @@ paths:
 
 **既定（2026-08-08 ctx-slim）**: 実装・大量読み（リポ横断の読み込み・大規模ファイル調査）は AI worker への委譲を既定とし、Claude（PM）は設計・検証・統括に徹する。大量読みの第一候補は **Kimi（現行 K3.1 Pro・1M）**（長大 context 対応。選択条件・上限は `agents.yaml` の `kimi_model_routing` を正本とする）。目的: Claude 本体のクレジット消費を抑える（ガバナンス領域 `.claude/` `hook` 等は worker 編集不可のため従来どおり Claude が担う）。
 
-**境界（2026-08-08・2026-10-09 改定）**: 見積り10分未満の小実装とガバナンス領域（`.claude/` `hook` 等の worker 編集不可領域）はサブエージェント内製、大タスク・並列・大量読みは worker（判定手順は `skills/agent-dispatch` が正本）。Claude Code の実装サブエージェントは **Haiku（現行 5.5・可変・既定 medium）** を主力とし、大規模・高難度・複数ファイルは **Sonnet（既定 high）** を使う。Codex の実装サブエージェントは **GPT-6.1 Terra（既定 max・fallback Luna）**。どちらも作業量・難度に応じて **medium / high / xhigh / max** を使い分ける。
+**境界（2026-08-08・2026-10-09 改定）**: 1ファイル・数行の直しは Claude の PM 役（Fable など）が直接やってよい（正本は `agents.yaml` の `task_routing.fable_usage_policy.small_direct_edit`。Sol など実装禁止のモデルは対象外）。それより大きい小実装（見積り10分未満）とガバナンス領域（`.claude/` `hook` 等の worker 編集不可領域）のまとまった実装はサブエージェント内製、大タスク・並列・大量読みは worker（判定手順は `skills/agent-dispatch` が正本）。Claude Code の実装サブエージェントは **Haiku（現行 5.5・可変・既定 medium）** を主力とし、大規模・高難度・複数ファイルは **Sonnet（既定 high）** を使う。Codex の実装サブエージェントは **GPT-6.1 Terra（既定 max・fallback Luna）**。どちらも作業量・難度に応じて **medium / high / xhigh / max** を使い分ける。
 
 **三役の呼称**: 監督=Claude / GPT-6 Sol / Cursor（PM クライアント）／参謀=Kimi（現行 K3.1 Pro）／職人=CodeBar残量と task fit で配分する GPT-6.1 Terra（量に応じ medium〜max・fallback GPT-6 Luna）・Kimi K3.1 Pro・GLM 5.3 系・Gemini Flash High。Kimi K2.8 Preview・K3 は明示指定の互換経路で、実装のfallbackにはしない（敵対的レビューは GPT-6.1 Sol 固定）。OpenCode GoはAI Worker候補から除外する。現行モデルと経路の正本は `agents.yaml#model_catalog` と `worker_delegation`。
 
-**Fable 使用条件（2026-08-11・ctx-save）**: Fable は難所（設計・承認判断／原因不明バグの診断／ガバナンス領域編集）限定。調査・大量読み・軽作業は使わない。重い調査が主目的のセッションは、セッションモデル自体を Sonnet 既定で開始する（第二弾 2026-08-11）。正本・境界の全文は `agents.yaml` の `task_routing.fable_usage_policy`（`session_model_default` 含む）を参照（複製しない）。
+**Fable 使用条件（2026-08-11・ctx-save）**: Fable は難所（設計・承認判断／原因不明バグの診断／ガバナンス領域編集）限定。調査・大量読み・軽作業は使わない（1ファイル・数行の直しは除く）。重い調査が主目的のセッションは、セッションモデル自体を Sonnet 既定で開始する（第二弾 2026-08-11）。正本・境界の全文は `agents.yaml` の `task_routing.fable_usage_policy`（`session_model_default` 含む）を参照（複製しない）。
 
 <!-- [2026-09-03][feat]
 背景:
