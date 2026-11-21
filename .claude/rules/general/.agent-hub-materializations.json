@@ -3,7 +3,7 @@
   "rules": {
     "ai-model-selection.md": {
       "asset_id": "ai-model-selection",
-      "sha256": "63e004d58e433bde6b3cba543c60b30d485d3e93bf8511dc34a207db459665b9",
+      "sha256": "929ca101382c4b0837ef73b89f22c1c95f0fff67a2f5c943372039e38ddac5a2",
       "source": ".claude/rules/general/ai-model-selection.md"
     },
     "ai-worker-watch.md": {
@@ -103,7 +103,7 @@
     },
     "visual-progress-map.md": {
       "asset_id": "visual-progress-map",
-      "sha256": "cc1e3797d50eb2d8fa4dbdd228e42b7095e7be564c4f9019a3d0394b4004a908",
+      "sha256": "07e66e38864c0bf8063f08d1a9f9029b0ba79ff1b56b50d7f1135ad66b5ef98d",
       "source": ".claude/rules/general/visual-progress-map.md"
     },
     "worktree-rule.md": {

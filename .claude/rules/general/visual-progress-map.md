@@ -1,7 +1,7 @@
 <!-- agents-md-card:start -->
 ### CARD: visual-progress-map — 現在地を図で
 - **いつ**: 3つ以上の要素説明・進捗・Issue/PR方針・原因→対処など §1-bis 該当時
-- **何を**: 短い再開・状況変化は現在地と残りを1行。図解が必要な時はL1 ASCII。**説明HTMLは薄いストーリー＋左ナビ。細部詰め込み禁止。MermaidはPC横/スマホ縦。共有は127.0.0.1配信+Tailscale Serve URL（0.0.0.0は使わない）。Stitch不要**（本番UIだけStitch）。手順: `skills/visual-companion/references/explain-html-codex.md`
+- **何を**: 短い再開・状況変化は現在地と残りを1行。図解が必要な時はL1 ASCII。**説明HTMLは『分かりやすいのレパートリー』で主役を決め、左ナビ。細部詰め込み禁止。MermaidはPC横/スマホ縦。共有は127.0.0.1配信+Tailscale Serve URL（0.0.0.0は使わない）。Stitch不要**（本番UIだけStitch）。手順: `skills/visual-companion/references/explain-html-codex.md`
 - **できた状態**: 今どこ・次どこが図で分かる（情報過多で迷わせない）
 - **詳細**: `.claude/rules/general/visual-progress-map.md`
 <!-- agents-md-card:end -->
@@ -119,10 +119,8 @@ skill 非起動時でも、以下のいずれかに該当したら L1 ASCII 図�
 **手順・テンプレ正本（ライブ読み）**: `skills/visual-companion/references/explain-html-codex.md`  
 **骨格テンプレ**: `skills/visual-companion/references/explain-html-shell.html`
 
-**既定（これで出す）**: 薄いストーリー型（PART A）。
+**何を主役にするか**: My GBrain『分かりやすいのレパートリー』の先頭（全部の型に共通の決まり → 場面の表）で決める。読めなければ「索引未取得」と書いて続ける。
 
-- 1行の変化 → Before/After 要点（各 3〜5 行）→ 役割最大 3 段
-- お手本粒度: `kaizen-unified` の PART A / `kaizen-cold-storage-story` 級
 - セクション 3 つ以上 → **左 sticky 目次**（スマホは横スクロール目次）
 - Mermaid を出すとき → **PC=LR・スマホ=TD** の2本＋CSS切替（手順正本参照）
 - 他端末・Tailscale 共有時 → `127.0.0.1` で配信し Tailscale Serve で中継する（`0.0.0.0` 直配信は使わない）。主リンクは Tailscale URL
@@ -135,10 +133,10 @@ skill 非起動時でも、以下のいずれかに該当したら L1 ASCII 図�
 - 「詳しいほど親切」として説明 HTML を仕様書化する
 - Stitch 未接続を理由に説明 HTML を拒否する
 
-**オプトイン（利用者が明示したときだけ）**:
+**画面モック・フロー図**:
 
-- 「画面で見せて」「Asana の画面」「PWA の画面」「Mermaid」など → PART B（画面モック / フロー図）
-- それでも **1画面あたりの意味合いを主役**にし、UI 細部の再現は最小にする
+- 使うかどうかも索引の場面の表で決める
+- 使う時も **1画面あたりの意味合いを主役**にし、UI 細部の再現は最小にする
 
 ## 5. 非エンジニア用語ルール
 

@@ -9,9 +9,6 @@
 #   - 他案不採用理由: project ごとに設定を手編集すると、SSOT との乖離と同期漏れが再発するため不採用。
 # 対応: AGENT-HUB 管理ブロックとして生成元と更新ルールをコメントで残す。
 
-[mcp]
-enabled = true
-
 # No project-scoped MCP servers are enabled for this project.
 
 # <<< AGENT-HUB MANAGED CODEX MCP END
